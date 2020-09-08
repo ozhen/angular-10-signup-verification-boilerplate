@@ -28,10 +28,11 @@ export class UpdateComponent implements OnInit {
             firstName: [this.account.firstName, Validators.required],
             lastName: [this.account.lastName, Validators.required],
             email: [this.account.email, [Validators.required, Validators.email]],
-            password: ['', [Validators.minLength(6)]],
-            confirmPassword: ['']
+            newPassword: ['', [Validators.minLength(6)]],
+            confirmPassword: ['', [Validators.minLength(6)]],
+            currentPassword: ['', [Validators.minLength(6)]]
         }, {
-            validator: MustMatch('password', 'confirmPassword')
+            validator: MustMatch('newPassword', 'confirmPassword')
         });
     }
 
@@ -54,6 +55,7 @@ export class UpdateComponent implements OnInit {
             .pipe(first())
             .subscribe({
                 next: () => {
+                    console.log(this.form.value.currentPassword);
                     this.alertService.success('Update successful', { keepAfterRouteChange: true });
                     this.router.navigate(['../'], { relativeTo: this.route });
                 },
